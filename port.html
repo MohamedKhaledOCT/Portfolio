@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Khaled | Cloud Engineer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #0f172a; /* Dark Navy */
+            --secondary: #334155; /* Slate */
+            --accent: #0ea5e9; /* Sky Blue */
+            --highlight: #f59e0b; /* Amber for special tags */
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- HEADER --- */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+
+        h1 { font-size: 3rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 0.5rem; }
+
+        .subtitle {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            background: rgba(14, 165, 233, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .contact-item { display: flex; align-items: center; gap: 0.5rem; color: #cbd5e1; font-size: 0.95rem; }
+        .contact-item:hover { color: var(--accent); }
+
+        /* --- LAYOUT UTILS --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem; }
+        section { margin-bottom: 4rem; }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 1rem;
+            border-left: 5px solid var(--accent);
+        }
+
+        /* --- SUMMARY --- */
+        .summary-box {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--accent);
+        }
+
+        /* --- EXPERIENCE --- */
+        .timeline {
+            position: relative;
+            border-left: 3px solid #e2e8f0;
+            margin-left: 1rem;
+            padding-left: 2rem;
+        }
+
+        .job-card {
+            position: relative;
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 1.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--accent);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .job-title { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+        .company { color: var(--accent); font-weight: 600; }
+        .date { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--text-light); background: #f1f5f9; padding: 0.2rem 0.5rem; border-radius: 4px;}
+
+        .job-details li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .job-details li::before { content: '▹'; color: var(--accent); margin-right: 0.5rem; }
+
+        /* --- PROJECTS --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-top: 3px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .project-card:hover { transform: translateY(-5px); border-top-color: var(--accent); }
+
+        .project-body { padding: 1.5rem; flex-grow: 1; }
+        
+        .project-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .special-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .tag-freelance { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .tag-nti { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+
+        .project-tech {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+        }
+
+        .project-desc { font-size: 0.9rem; color: #475569; margin-bottom: 1rem; }
+        
+        .achievements {
+            background: #f8fafc;
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .achievements h4 { font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .achievements ul li { font-size: 0.85rem; margin-bottom: 0.3rem; list-style: disc; margin-left: 1.2rem; }
+
+        /* --- SKILLS & CERTIFICATES --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .skill-category h3 { font-size: 1.1rem; color: var(--secondary); margin-bottom: 0.8rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag { background: #e0f2fe; color: #0369a1; padding: 0.4rem 0.8rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; }
+
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+        .cert-item { background: white; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; display: flex; align-items: center; gap: 0.8rem; font-weight: 600; font-size: 0.85rem; color: var(--primary); }
+        .cert-item i { color: #eab308; font-size: 1.2rem; }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 2rem; background: var(--primary); color: #94a3b8; font-size: 0.9rem; margin-top: 4rem; }
+
+        /* --- PRINT STYLES --- */
+        @media print {
+            body { background: white; color: black; font-size: 10pt; }
+            header { background: white; color: black; padding: 1rem 0; border-bottom: 2px solid black; }
+            header::before { display: none; }
+            h1 { color: black; font-size: 22pt; margin: 0; }
+            .subtitle { color: black; background: none; padding: 0; border: none; font-weight: bold; }
+            .contact-item { color: black; }
+            .contact-item i { display: none; }
+            
+            section { margin-bottom: 1.5rem; break-inside: avoid; }
+            .section-title { font-size: 14pt; border-left: none; border-bottom: 2px solid #ccc; padding: 0; margin-bottom: 1rem; }
+            
+            .summary-box, .job-card, .project-card { box-shadow: none; border: none; padding: 0; margin-bottom: 1rem; background: none; }
+            .timeline { border-left: none; margin: 0; padding: 0; }
+            .job-card::before { display: none; }
+            
+            .project-card { margin-bottom: 1.5rem; page-break-inside: avoid; border-bottom: 1px solid #eee; padding-bottom: 1rem; display: block; }
+            .project-card:hover { transform: none; border-top: none; }
+            .achievements { background: none; padding: 0; border: none; }
+            
+            .skills-grid, .cert-grid { display: block; }
+            .skill-category, .cert-item { margin-bottom: 0.5rem; page-break-inside: avoid; border: none; padding: 0; }
+            .tag { border: 1px solid #ccc; background: white; color: black; }
+            
+            .no-print { display: none; }
+            a { text-decoration: none; color: black; }
+        }
+
+        .fab-print {
+            position: fixed; bottom: 2rem; right: 2rem; background: var(--accent); color: white; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); cursor: pointer; z-index: 100; border: none; transition: 0.3s;
+        }
+        .fab-print:hover { transform: scale(1.1); background: #0284c7; }
+    </style>
+</head>
+<body>
+
+    <button class="fab-print no-print" onclick="window.print()" title="Print / Save as PDF">
+        <i class="fas fa-print fa-lg"></i>
+    </button>
+
+    <header>
+        <div class="hero-content">
+            <h1>Mohamed Khaled</h1>
+            <div class="subtitle">Cloud Engineer & Flutter Developer</div>
+            <div class="contact-info">
+                <a href="mailto:MohamedKhaledCareer@outlook.com" class="contact-item"><i class="fas fa-envelope"></i> MohamedKhaledCareer@outlook.com</a>
+                <a href="tel:01150563985" class="contact-item"><i class="fas fa-phone"></i> 01150563985</a>
+                <a href="https://linkedin.com/in/mohamed-khaled-603728243" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://github.com/MohamedKhaledOCT" target="_blank" class="contact-item"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section id="summary">
+            <h2 class="section-title">Professional Summary</h2>
+            <div class="summary-box">
+                <p>Detail-oriented Cloud Engineer with hands-on experience in CI/CD pipelines, Infrastructure as Code (IaC), container orchestration, and cloud automation. Proficient in Kubernetes, Jenkins, Docker, Terraform, and GitOps workflows. Strong Linux background with a good understanding of networking and cloud-native security practices. Proven ability to deliver scalable, reliable infrastructure and streamline deployment pipelines across cloud environments (AWS, GCP).</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Freelance Flutter Developer</div>
+                            <div class="company">Freelance</div>
+                        </div>
+                        <div class="date">Sep 2025 – Present</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Develop and maintain cross-platform mobile and web applications.</li>
+                        <li>Manage the full project lifecycle, from requirement gathering and UI/UX design to backend integration, CI/CD pipeline setup (GitHub Actions), and deployment.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Flutter Intern</div>
+                            <div class="company">National Telecommunication Institute (NTI)</div>
+                        </div>
+                        <div class="date">Sep 2025 – Present</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Mastered Dart fundamentals (OOP, Null Safety, Collections) and asynchronous programming.</li>
+                        <li>Built responsive UIs using Flutter's widget tree and managed state using setState, Cubit, and Bloc.</li>
+                        <li>Implemented local persistence using Hive and integrated with Firebase (Auth, Firestore).</li>
+                        <li>Consumed REST APIs using Dio and Retrofit.</li>
+                        <li>Hands-on Projects: BMI Calculator, To-Do app, and Doctor Appointment booking application.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">IT Support Specialist</div>
+                            <div class="company">Malibu</div>
+                        </div>
+                        <div class="date">Sep 2025 – Present</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Setup and deployment of office IT infrastructure (printers, Wi-Fi access points).</li>
+                        <li>Led company-wide deployment of ERP system and managed initial configuration.</li>
+                        <li>Provided technical support troubleshooting hardware and software issues.</li>
+                        <li>Implemented preventive maintenance schedules improving system reliability.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Linux System Administrator Intern</div>
+                            <div class="company">National Telecommunication Institute (NTI)</div>
+                        </div>
+                        <div class="date">Apr 2025 – Jun 2025</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Acted as a Linux System Administrator managing system configurations and user accounts.</li>
+                        <li>Worked with virtualization and performed scripting to automate system tasks.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">DevOps Engineer Intern</div>
+                            <div class="company">Orange Digital Center</div>
+                        </div>
+                        <div class="date">Sep 2024 – Oct 2024</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Focused on implementing practical DevOps scenarios across multiple projects.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">DevOps Engineer Intern</div>
+                            <div class="company">Etisalat e&</div>
+                        </div>
+                        <div class="date">Jul 2024</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Studied intelligent network and telecom cloud systems provided by Ericsson.</li>
+                        <li>Gained hands-on experience with telecom cloud operations and network intelligence.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">DevOps Engineer Intern</div>
+                            <div class="company">National Telecommunications Institute (NTI)</div>
+                        </div>
+                        <div class="date">Feb 2024 – May 2024</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Collaborated with senior engineers to implement DevOps best practices.</li>
+                        <li>Contributed to the design and implementation of CI/CD pipelines.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">CCNA Intern</div>
+                            <div class="company">National Telecommunications Institute (NTI)</div>
+                        </div>
+                        <div class="date">Nov 2023</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Completed comprehensive training in networking fundamentals and Cisco technologies.</li>
+                        <li>Gained hands-on experience in configuring and troubleshooting network devices.</li>
+                    </ul>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Cyber Security Intern</div>
+                            <div class="company">Orange Digital Center</div>
+                        </div>
+                        <div class="date">Oct 2022 – Nov 2022</div>
+                    </div>
+                    <ul class="job-details">
+                        <li>Assisted in implementing security measures to protect network infrastructure.</li>
+                        <li>Conducted vulnerability assessments and developed risk mitigation strategies.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Technical Projects</h2>
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-header-row">
+                            <div class="project-title"><i class="fas fa-stethoscope"></i> Real-Time Clinic System</div>
+                            <span class="special-tag tag-freelance">Freelance Project</span>
+                        </div>
+                        <div class="project-tech">Flutter • Firebase • GitHub Actions • Cloudinary</div>
+                        <p class="project-desc">Designed and built a multi-user, real-time clinic management application to streamline patient flow between secretaries and doctors.</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>Architected serverless backend (BaaS) using Firebase with role-based access.</li>
+                                <li>Engineered live patient queue using Firestore streams (Waiting/In-Session).</li>
+                                <li>Developed complex PDF generation for prescription printing.</li>
+                                <li>Implemented CI/CD pipeline via GitHub Actions for automated deployment.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-header-row">
+                            <div class="project-title"><i class="fas fa-wallet"></i> Full-Stack Financial App (M/WE)</div>
+                            <span class="special-tag tag-nti">NTI Graduation Project</span>
+                        </div>
+                        <div class="project-tech">Flutter • Cubit • Firebase • Localization</div>
+                        <p class="project-desc">Cross-platform financial management app for personal and company use, featuring responsive UI and real-time sync.</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>Built single responsive codebase for mobile/web.</li>
+                                <li>Implemented secure multi-tenant data model (Personal vs Company).</li>
+                                <li>Deployed fully serverless application.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-title"><i class="fab fa-aws"></i> Serverless Draw Application</div>
+                        <div class="project-tech">Terraform • Lambda • DynamoDB • S3</div>
+                        <p class="project-desc">Built a Serverless Draw System using AWS services and automated infrastructure deployment with IaC.</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>Deployed production-ready serverless app with zero backend servers.</li>
+                                <li>Automated provisioning using Terraform.</li>
+                                <li>Secured via ACM and integrated with NoSQL database.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-title"><i class="fab fa-google"></i> Automated WordPress on GCP</div>
+                        <div class="project-tech">GKE • Cloud SQL • VPC • Bash</div>
+                        <p class="project-desc">Set up cloud infrastructure using GCP for deploying a WordPress environment with high availability.</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>Deployed Kubernetes Cluster (GKE) for scaling.</li>
+                                <li>Configured Cloud SQL Proxy and Load Balancers.</li>
+                                <li>Implemented IAM roles for secure access.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-title"><i class="fab fa-node-js"></i> Automated Node.js Deployment</div>
+                        <div class="project-tech">Jenkins • ArgoCD • Docker • K8s</div>
+                        <p class="project-desc">Implemented a robust CI/CD pipeline to manage the deployment of a Node.js application.</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>CI via Jenkins: Automated build, test, and Docker Hub integration.</li>
+                                <li>CD via ArgoCD: GitOps synchronization with K8s cluster.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-title"><i class="fas fa-file-invoice-dollar"></i> Serverless Billing System (GCP)</div>
+                        <div class="project-tech">GCP CLI • Cloud Build • Cloud Run</div>
+                        <p class="project-desc">Billing application migration to scalable microservice model for a veterinary company (Pet Theory).</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>Utilized GCP CLI exclusively to automate all provisioning.</li>
+                                <li>Built and deployed multiple services using Cloud Build & Run.</li>
+                                <li>Enforced least privilege using Cloud IAM service accounts.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-title"><i class="fas fa-cloud"></i> Cross-Cloud Analytics</div>
+                        <div class="project-tech">BigQuery Omni • AWS S3 • BigLake</div>
+                        <p class="project-desc">Hybrid analytics pipeline using BigQuery Omni to run SQL analytics directly on AWS S3 data.</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>Authorized BigQuery Omni to query external S3 data.</li>
+                                <li>Enabled cost-efficient, multi-cloud analytics without data duplication.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-title"><i class="fas fa-stream"></i> Real-Time Data Pipeline</div>
+                        <div class="project-tech">SingleStoreDB • Pub/Sub • Dataflow</div>
+                        <p class="project-desc">Deployed a real-time data ingestion and analytics pipeline using SingleStoreDB and GCP native services.</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>Built streaming architecture (Pub/Sub → Dataflow → GCS → SingleStore).</li>
+                                <li>Automated pipeline deployment and SQL-based analytics.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-body">
+                        <div class="project-title"><i class="fas fa-project-diagram"></i> Service Mesh with Istio on GKE</div>
+                        <div class="project-tech">Istio • Envoy • Cloud Monitoring</div>
+                        <p class="project-desc">Deployed and configured a Cloud Service Mesh using GKE and Istio for microservices.</p>
+                        <div class="achievements">
+                            <h4>Key Achievements:</h4>
+                            <ul>
+                                <li>Enabled automatic sidecar injection and traffic routing via Envoy.</li>
+                                <li>Configured Ingress Gateway and monitored via Cloud Monitoring.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Cloud & IaC</h3>
+                    <div class="skill-tags">
+                        <span class="tag">AWS</span>
+                        <span class="tag">GCP</span>
+                        <span class="tag">Terraform</span>
+                        <span class="tag">OpenStack</span>
+                        <span class="tag">CloudFormation</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>DevOps & Containers</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Docker</span>
+                        <span class="tag">Kubernetes</span>
+                        <span class="tag">Helm</span>
+                        <span class="tag">Jenkins</span>
+                        <span class="tag">ArgoCD</span>
+                        <span class="tag">GitHub Actions</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Development</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Flutter</span>
+                        <span class="tag">Dart</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Bash</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Firebase</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Others</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Linux</span>
+                        <span class="tag">CCNA</span>
+                        <span class="tag">Istio</span>
+                        <span class="tag">Prometheus & Grafana</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <h2 class="section-title">Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-item"><i class="fas fa-certificate"></i> Certified Kubernetes Administrator (CKA)</div>
+                <div class="cert-item"><i class="fas fa-certificate"></i> Google Cloud Certified - Associate</div>
+                <div class="cert-item"><i class="fas fa-certificate"></i> AWS Certified Solutions Architect</div>
+                <div class="cert-item"><i class="fas fa-certificate"></i> AWS Certified Cloud Practitioner</div>
+                <div class="cert-item"><i class="fas fa-certificate"></i> AWS Machine Learning Engineer</div>
+                <div class="cert-item"><i class="fas fa-certificate"></i> AWS AI Practitioner</div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="job-card" style="margin-bottom: 0;">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Bachelor of Computer Science</div>
+                        <div class="company">Thebes Higher Institute of Computer and Management Science</div>
+                    </div>
+                    <div class="date">2017 – 2021</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© 2025 Mohamed Khaled. All Rights Reserved.</p>
+        <p>Built with precision using HTML & CSS.</p>
+    </footer>
+
+</body>
+</html>
